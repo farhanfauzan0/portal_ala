@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\Jurnalcontroller;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProdukController;
@@ -77,6 +78,12 @@ Route::group(['middleware' => 'auth:web'], function () {
     Route::get('invoice/setting', [InvoiceController::class, 'index_setting'])->name('invoice.setting.index');
     Route::post('invoice/setting/p', [InvoiceController::class, 'setting_post'])->name('invoice.setting.post');
     Route::post('invoice/submit/p', [InvoiceController::class, 'submit_invoice'])->name('invoice.submit.post');
+
+    Route::get('journal', [Jurnalcontroller::class, 'index'])->name('journal.index');
+    Route::post('journal/insert', [Jurnalcontroller::class, 'insert'])->name('journal.insert');
+    Route::post('journal/edit', [Jurnalcontroller::class, 'edit'])->name('journal.edit');
+    Route::post('journal/update', [Jurnalcontroller::class, 'update'])->name('journal.update');
+    Route::post('journal/delete', [Jurnalcontroller::class, 'delete'])->name('journal.delete');
 
     Route::get('/logout', function () {
         Auth::guard('web')->logout();
