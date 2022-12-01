@@ -50,11 +50,11 @@
     <div class="row">
         <div class="col-12 text-center" style="text-align: center">
             <h3>INVOICE</h3>
-            <h6>NO. {{ $request[0]['no_invoice'] }}</h6>
+            <h6>NO. {{ $data_one->no_invoice }}</h6>
         </div>
         <div class="col-12">
             <h4 class="text-left">Telah diterima dari:</h4>
-            <h6>{{ $request['perusahaan'] }}</h6>
+            <h6>{{ $data_one->perusahaan }}</h6>
         </div>
     </div>
     <div class="row text-center">
@@ -63,28 +63,34 @@
                 <tr style="background-color: rgb(236, 236, 236)">
                     <th>Deskripsi</th>
                     <th>Jumlah</th>
-                    <th>Harga Per/pcs</th>
+                    <th>Harga</th>
                     <th>Total Harga</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($request['deskripsi'] as $key => $datas)
+                @php
+                $total = 0;
+                @endphp
+                @foreach ($request_all as $datas)
                 <tr>
-                    <td style="height: 50px">{{ $request['deskripsi'][$key] }}</td>
-                    <td>{{ $request['jumlah'][$key] }}</td>
-                    <td>{{ $request['harga_pcs'][$key] }}</td>
-                    <td>{{ $request['total_harga'][$key] }}</td>
+                    <td style="height: 40px">{{ $datas->deskripsi }}</td>
+                    <td>{{ $datas->qty }}</td>
+                    <td>Rp {{ number_format($datas->amount) }}</td>
+                    <td>Rp {{ number_format($datas->total) }}</td>
                 </tr>
+                @php
+                $total += $datas->total;
+                @endphp
                 @endforeach
 
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="3">Total</td>
-                    <td>{{ $request['total_all'] }}</td>
+                    <td>Rp {{ number_format($total) }}</td>
                 </tr>
                 <tr>
-                    <td colspan="4">Terbilang</td>
+                    <td colspan="4">Terbilang: {{ App\Http\Controllers\InvoiceController::terbilang($total) }} rupiah</td>
                 </tr>
             </tfoot>
         </table>
@@ -100,17 +106,17 @@
             <tr>
                 <td>Nama</td>
                 <td style="text-align: right">:</td>
-                <td style="text-align: left">TEST</td>
+                <td style="text-align: left">{{ $data->nama_rekening }}</td>
             </tr>
             <tr>
                 <td>Nomor Rekening</td>
                 <td style="text-align: right">:</td>
-                <td style="text-align: left">12321431432</td>
+                <td style="text-align: left">{{ $data->nomor_rekening }}</td>
             </tr>
             <tr>
                 <td>Bank</td>
                 <td style="text-align: right">:</td>
-                <td style="text-align: left">BNI</td>
+                <td style="text-align: left">{{ $data->bank }}</td>
             </tr>
         </tbody>
     </table>

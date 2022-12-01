@@ -75,9 +75,15 @@ Route::group(['middleware' => 'auth:web'], function () {
     Route::post('master/delete/journal', [MasterController::class, 'delete_journal'])->name('master.delete.journal');
 
     Route::get('invoice/n', [InvoiceController::class, 'index'])->name('invoice.index');
+    Route::get('invoice/cetak/invoice', [InvoiceController::class, 'cetak_invoice'])->name('cetak.invoice');
+    Route::get('invoice/list', [InvoiceController::class, 'index_list'])->name('invoice.list.index');
     Route::get('invoice/setting', [InvoiceController::class, 'index_setting'])->name('invoice.setting.index');
     Route::post('invoice/setting/p', [InvoiceController::class, 'setting_post'])->name('invoice.setting.post');
+    Route::post('invoice/setting/bank/p', [InvoiceController::class, 'setting_bank_post'])->name('invoice.setting.bank.post');
     Route::post('invoice/submit/p', [InvoiceController::class, 'submit_invoice'])->name('invoice.submit.post');
+    Route::post('invoice/import/n', [InvoiceController::class, 'import_excel'])->name('invoice.import.post');
+    Route::post('invoice/delete/p', [InvoiceController::class, 'delete'])->name('invoice.delete');
+    Route::post('invoice/detail/p', [InvoiceController::class, 'detail'])->name('invoice.detail');
 
     Route::get('journal', [Jurnalcontroller::class, 'index'])->name('journal.index');
     Route::post('journal/insert', [Jurnalcontroller::class, 'insert'])->name('journal.insert');

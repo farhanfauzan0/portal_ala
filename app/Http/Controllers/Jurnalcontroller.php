@@ -38,8 +38,8 @@ class Jurnalcontroller extends Controller
         DB::table('portal_journal')->insert([
             'code' => $request->code,
             'detail' => $request->detail,
-            'debit' => $request->debit,
-            'credit' => $request->credit,
+            'debit' => str_replace(".", "", $request->debit),
+            'credit' => str_replace(".", "", $request->credit),
             'tanggal' => $request->tanggal,
             'created_at' => Carbon::now()
         ]);

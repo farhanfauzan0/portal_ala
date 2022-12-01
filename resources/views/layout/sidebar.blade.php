@@ -47,6 +47,9 @@
                         <a class="nav-link pl-3" href="{{ route('invoice.index') }}"><span class="ml-1 item-text">New Invoice</span></a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link pl-3" href="{{ route('invoice.list.index') }}"><span class="ml-1 item-text">List Invoice</span></a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link pl-3" href="{{ route('invoice.setting.index') }}"><span class="ml-1 item-text">Setting Invoice</span></a>
                     </li>
 
@@ -81,14 +84,14 @@
                 </ul>
             </li>
         </ul> --}}
-        <ul class="navbar-nav flex-fill w-100 mb-2">
+        {{-- <ul class="navbar-nav flex-fill w-100 mb-2">
             <li class="nav-item w-100">
                 <a class="nav-link" href="#">
                     <i class="fe fe-book-open fe-16"></i>
                     <span class="ml-3 item-text">Users</span>
                 </a>
             </li>
-        </ul>
+        </ul> --}}
         <ul class="navbar-nav flex-fill w-100 mb-2">
             <li class="nav-item w-100">
                 <a class="nav-link" href="{{ route('master.index') }}">

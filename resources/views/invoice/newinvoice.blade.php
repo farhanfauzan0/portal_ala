@@ -9,6 +9,49 @@
                     <div class="card-body">
                         <div class="toolbar row mb-3">
                             <div class="col">
+                                <h4>Import Excel Invoice</h4>
+                            </div>
+                        </div>
+                        <form action="{{ route('invoice.import.post') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="nama">Nama Pemesan</label>
+                                        <input type="text" class="form-control" name="nama_pemesan">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nama">Perusahaan</label>
+                                        <input type="text" class="form-control" name="perusahaan">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nama">Jenis</label>
+                                        <select name="jenis" class="select2 form-control">
+                                            <option value="ala">ALA</option>
+                                            <option value="aza">AZA</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="nama">Alamat Pemesan</label>
+                                        <input type="text" class="form-control" name="alamat_pemesan">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nama">File</label>
+                                        <input type="file" class="form-control" name="file">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <button class="btn btn-success">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <div class="toolbar row mb-3">
+                            <div class="col">
                                 <h4>New Invoice</h4>
                             </div>
                         </div>
@@ -26,7 +69,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="nama">Alamat Pemesan</label>
-                                        <input type="text" class="form-control" name="alamt_pemesan">
+                                        <input type="text" class="form-control" name="alamat_pemesan">
                                     </div>
                                 </div>
                                 <div class="col-6">

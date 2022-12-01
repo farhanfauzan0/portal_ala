@@ -53,8 +53,8 @@
                                     <td>{{ \Carbon\Carbon::parse($datas->created_at)->format('Y-m-d') }}</td>
                                     <td>{{ $datas->code }}</td>
                                     <td>{{ $datas->detail }}</td>
-                                    <td>{{ $datas->debit }}</td>
-                                    <td>{{ $datas->credit }}</td>
+                                    <td>{{ number_format($datas->debit) }}</td>
+                                    <td>{{ number_format($datas->credit) }}</td>
                                     <td>
                                         <button class="btn btn-sm btn-danger" onclick="deleteConfirmation({{ $datas->id }})">Hapus</button>
                                         <button class="btn btn-sm btn-info button-edit" data-id="{{ $datas->id }}">Edit</button>
