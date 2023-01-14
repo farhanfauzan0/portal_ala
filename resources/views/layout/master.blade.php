@@ -113,20 +113,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        var filename = "ALA_GROUP" + Date.now()
-        $(".table").DataTable({
-            dom: 'Bfrtip'
-            , buttons: [{
-                    extend: 'excelHtml5'
-                    , filename: filename
-                    , text: "Export to Excel"
-                    , exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
-                    }
-                }
-                , 'pageLength'
-            ]
-        });
+
 
         $('.number-only').mask('0#');
         $('.number-money').mask('000.000.000.000.000', {

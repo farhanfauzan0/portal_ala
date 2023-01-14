@@ -198,6 +198,21 @@
             'show': true
         })
     })
+    var dates = new Date().toLocaleDateString("en-US")
+    var filename = "ALA_GROUP_JOURNAL_" + dates
+    $(".table").DataTable({
+        dom: 'Bfrtip'
+        , buttons: [{
+                extend: 'excelHtml5'
+                , filename: filename
+                , text: "Export to Excel"
+                , exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5]
+                }
+            }
+            , 'pageLength'
+        ]
+    });
 
     $('.button-edit').click(function() {
         var id = $(this).data('id')

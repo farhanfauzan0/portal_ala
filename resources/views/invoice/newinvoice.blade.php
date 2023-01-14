@@ -75,11 +75,11 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="nama">No Invoice</label>
-                                        <input type="text" class="form-control" value="INV/{{ date('dm') }}/{{ date('yhis') }}" name="no_inv">
+                                        <input type="text" class="form-control" value="" id="no-inv" name="no_inv">
                                     </div>
                                     <div class="form-group">
                                         <label for="nama">Jenis</label>
-                                        <select name="jenis" class="select2 form-control">
+                                        <select name="jenis" class="select2 form-control jenis">
                                             <option value="ala">ALA</option>
                                             <option value="aza">AZA</option>
                                         </select>
@@ -204,8 +204,33 @@
         })
     }
 
+    function refresh_no_invoice() {
+        var jenis = $(".jenis").find(":selected").text()
+        const today = new Date();
+        var jam = today.toLocaleDateString("en-US", {
+            hour: "2-digit"
+        })
+        var hari = today.toLocaleDateString("en-US", {
+            day: "2-digit"
+        })
+        var tahun = today.toLocaleDateString("en-US", {
+            year: "numeric"
+        })
+        var bulan = today.toLocaleDateString("en-US", {
+            month: "numeric"
+        })
+
+        var no_invoice = hari + "" + today.getHours() + "/" + jenis + "/" + "INVOICE/" + bulan + "/" + tahun
+        $("#no-inv").val(no_invoice)
+    }
+
+    $(".jenis").change(function() {
+        refresh_no_invoice()
+    })
+
     $(document).ready(function() {
         actionss()
+        refresh_no_invoice()
     })
 
 </script>
