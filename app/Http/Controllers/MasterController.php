@@ -58,7 +58,7 @@ class MasterController extends Controller
     {
         try {
             DB::table('portal_master_journal')->insert([
-                'code' => $request->journal,
+                'kategori' => $request->journal,
                 'created_at' => Carbon::now()
             ]);
             return back()->with(['mysweet' => true, 'title_a' => 'Berhasil', 'text_a' => 'Data berhasil diinput.', 'icon_a' => 'success']);
@@ -118,7 +118,7 @@ class MasterController extends Controller
     function update_journal(Request $request)
     {
         try {
-            DB::table('portal_master_journal')->whereid($request->id)->update(['code' => $request->journal]);
+            DB::table('portal_master_journal')->whereid($request->id)->update(['kategori' => $request->journal]);
             return back()->with(['mysweet' => true, 'title_a' => 'Berhasil', 'text_a' => 'Data berhasil dirubah.', 'icon_a' => 'success']);
         } catch (\Throwable $th) {
             return back()->with(['mysweet' => true, 'title_a' => 'Gagal', 'text_a' => 'Data gagal dirubah!', 'icon_a' => 'error']);

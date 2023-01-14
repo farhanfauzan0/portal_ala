@@ -14,16 +14,18 @@ class Jurnalcontroller extends Controller
         if (!empty($request->tanggal_dari) && !empty($request->tanggal_ke)) {
             $data = DB::table('portal_journal')->whereBetween('tanggal', [$request->tanggal_dari, $request->tanggal_ke])->get();
         } else {
-
             $data = DB::table('portal_journal')->get();
         }
+
+        $data_code_order = DB::table('portal_order')->get();
         $datacode = DB::table('portal_master_journal')->get();
-        return view('jurnal.index', ['data' => $data, 'datacode' => $datacode]);
+        return view('jurnal.index', ['data' => $data, 'datacode' => $datacode, 'data_code_order' => $data_code_order]);
     }
 
     function insert(Request $request)
     {
         $valids = Validator::make($request->all(), [
+            "kategori" => "required",
             "code" => "required",
             "detail" => "required",
             "debit" => "required",
@@ -36,6 +38,7 @@ class Jurnalcontroller extends Controller
         }
 
         DB::table('portal_journal')->insert([
+            'kategori' => $request->kategori,
             'code' => $request->code,
             'detail' => $request->detail,
             'debit' => str_replace(".", "", $request->debit),
@@ -59,7 +62,7 @@ class Jurnalcontroller extends Controller
     function update(Request $request)
     {
         $valids = Validator::make($request->all(), [
-            "code" => "required",
+            "kategori" => "required",
             "detail" => "required",
             "debit" => "required",
             "credit" => "required",
@@ -72,6 +75,7 @@ class Jurnalcontroller extends Controller
         try {
             DB::table('portal_journal')->whereid($request->id)->update([
                 'code' => $request->code,
+                'kategori' => $request->kategori,
                 'detail' => $request->detail,
                 'debit' => $request->debit,
                 'credit' => $request->credit,

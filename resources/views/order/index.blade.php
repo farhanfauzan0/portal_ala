@@ -24,11 +24,17 @@
                                     <th>Status</th>
                                     <th>Deadline</th>
                                     <th>Omset</th>
+                                    <th>Produksi</th>
+                                    <th>Gross</th>
                                     <th>#</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($data as $datas)
+                                @php
+                                $jml_produksi = app\Http\Controllers\OrderController::jumlah_produksi($datas->id);
+                                $gross = (int) str_replace(".", "", $datas->omset) - (int) str_replace(".", "",$jml_produksi);
+                                @endphp
                                 <tr>
                                     <td>{{ $datas->pemesan }}</td>
                                     <td>{{ $datas->pesanan }}</td>
@@ -36,6 +42,8 @@
                                     <td>{{ $datas->status }}</td>
                                     <td>{{ \Carbon\Carbon::parse($datas->deadline)->format('Y-m-d') }}</td>
                                     <td>{{ $datas->omset }}</td>
+                                    <td>{{ $jml_produksi  }}</td>
+                                    <td>{{ number_format($gross,0, ".", ".") }}</td>
                                     <td>
                                         <button class="btn btn-sm btn-danger" onclick="deleteConfirmation({{ $datas->id }})">Hapus</button>
                                         <button class="btn btn-sm btn-info button-edit" data-id="{{ $datas->id }}">Edit</button>
@@ -89,11 +97,12 @@
                         </div>
                         <div class="form-group">
                             <label for="nama">Deadline</label>
-                            <select name="deadline" class="select2 form-control">
+                            <input type="text" name="deadline" class="datepickers form-control">
+                            {{-- <select name="deadline" class="select2 form-control">
                                 @foreach ($datadeadline as $datadeadlines)
                                 <option value="{{ $datadeadlines->tanggal }}">{{ $datadeadlines->tanggal }}</option>
-                                @endforeach
-                            </select>
+                            @endforeach
+                            </select> --}}
                         </div>
                         <div class="form-group">
                             <label for="nama">Omset</label>
@@ -148,11 +157,12 @@
                         </div>
                         <div class="form-group">
                             <label for="nama">Deadline</label>
-                            <select name="deadline" class="select2 form-control" id="deadline-edit">
+                            {{-- <select name="deadline" class="select2 form-control" id="deadline-edit">
                                 @foreach ($datadeadline as $datadeadlines)
                                 <option value="{{ $datadeadlines->tanggal }}">{{ $datadeadlines->tanggal }}</option>
-                                @endforeach
-                            </select>
+                            @endforeach
+                            </select> --}}
+                            <input type="text" name="deadline" class="datepickers form-control">
                         </div>
                         <div class="form-group">
                             <label for="nama">Omset</label>

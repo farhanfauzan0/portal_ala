@@ -18,6 +18,17 @@ class OrderController extends Controller
         return view('order.index', ['data' => $data, 'datapesanan' => $datapesanan, 'datastatus' => $datastatus, 'datadeadline' => $datadeadline]);
     }
 
+    public function jumlah_produksi($id)
+    {
+        $order = DB::table('portal_order')->whereid($id)->first();
+        $nominal = 0;
+        $data_jurnal = DB::table('portal_journal')->wherekategori("PRODUKSI")->wherecode($order->pemesan . "_" . $order->pesanan)->get();
+        foreach ($data_jurnal as $value) {
+            $nominal += $value->debit;
+        }
+        return (number_format($nominal, 0, ".", "."));
+    }
+
     function insert(Request $request)
     {
         $valids = Validator::make($request->all(), [
@@ -43,6 +54,10 @@ class OrderController extends Controller
                 'omset' => $request->omset,
                 'created_at' => Carbon::now()
             ]);
+            // DB::table('portal_master_journal')->insert([
+            //     'code' => $request->pemesan . "_" . $request->pesanan,
+            //     'created_at' => Carbon::now()
+            // ]);
             return back()->with(['mysweet' => true, 'title_a' => 'Berhasil', 'text_a' => 'Data berhasil diinput!', 'icon_a' => 'success']);
         } catch (\Throwable $th) {
             return back()->with(['mysweet' => true, 'title_a' => 'Gagal', 'text_a' => 'Data gagal diinput!', 'icon_a' => 'error']);
@@ -57,6 +72,7 @@ class OrderController extends Controller
 
     function update(Request $request)
     {
+        // dd($request->all());
         $valids = Validator::make($request->all(), [
             "pemesan" => "required",
             "pesanan" => "required",

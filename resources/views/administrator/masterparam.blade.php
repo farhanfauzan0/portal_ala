@@ -117,14 +117,14 @@
                         <table class="table table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Code</th>
+                                    <th>Kategori</th>
                                     <th>#</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($datajournal as $datajournals)
                                 <tr>
-                                    <td>{{ $datajournals->code }}</td>
+                                    <td>{{ $datajournals->kategori }}</td>
                                     <td>
                                         <button class="btn btn-sm btn-danger" onclick="deleteConfirmationjournal({{ $datajournals->id }})">Hapus</button>
                                         <button class="btn btn-sm btn-info button-edit-journal" data-id="{{ $datajournals->id }}">Edit</button>
@@ -353,14 +353,7 @@
 <script>
     // $('.daterangepicker').prependTo('modal-tambah-deadline')
 
-    $(function() {
-        $("body").delegate(".datepickers", "focusin", function() {
-            $(this).datepicker({
-                autoclose: true
-                , format: 'yyyy-mm-dd'
-            });
-        });
-    });
+
     $('.tombol-tambah-pesanan').click(function() {
         $('.modal-tambah-pesanan').modal({
             'show': true

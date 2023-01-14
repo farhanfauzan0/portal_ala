@@ -40,6 +40,7 @@
                             <thead>
                                 <tr>
                                     <th>Tanggal</th>
+                                    <th>Kategori</th>
                                     <th>Kode</th>
                                     <th>Detail</th>
                                     <th>Debit</th>
@@ -51,6 +52,7 @@
                                 @foreach ($data as $datas)
                                 <tr>
                                     <td>{{ \Carbon\Carbon::parse($datas->created_at)->format('Y-m-d') }}</td>
+                                    <td>{{ $datas->kategori }}</td>
                                     <td>{{ $datas->code }}</td>
                                     <td>{{ $datas->detail }}</td>
                                     <td>{{ number_format($datas->debit) }}</td>
@@ -87,10 +89,18 @@
                             {{-- <input type="text" class="form-control" name="pesanan" id="pesanan"> --}}
                         </div>
                         <div class="form-group">
-                            <label for="nama">Code</label>
-                            <select name="code" class="select2 form-control">
+                            <label for="nama">Kategori</label>
+                            <select name="kategori" class="select2 form-control">
                                 @foreach ($datacode as $datacodes)
-                                <option value="{{ $datacodes->code }}">{{ $datacodes->code }}</option>
+                                <option value="{{ $datacodes->kategori }}">{{ $datacodes->kategori }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nama">Kode</label>
+                            <select name="code" class="select2 form-control">
+                                @foreach ($data_code_order as $data_code_orders)
+                                <option value="{{ $data_code_orders->pemesan }}_{{ $data_code_orders->pesanan }}">{{ $data_code_orders->pemesan }}_{{ $data_code_orders->pesanan }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -135,10 +145,18 @@
                             {{-- <input type="text" class="form-control" name="pesanan" id="pesanan"> --}}
                         </div>
                         <div class="form-group">
-                            <label for="nama">Code</label>
-                            <select name="code" class="select2 form-control" id="code-edit">
+                            <label for="nama">Kategori</label>
+                            <select name="kategori" class="select2 form-control" id="code-edit">
                                 @foreach ($datacode as $datacodes)
-                                <option value="{{ $datacodes->code }}">{{ $datacodes->code }}</option>
+                                <option value="{{ $datacodes->kategori }}">{{ $datacodes->kategori }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nama">Kode</label>
+                            <select name="code" class="select2 form-control">
+                                @foreach ($data_code_order as $data_code_orders)
+                                <option value="{{ $data_code_orders->pemesan }}_{{ $data_code_orders->pesanan }}">{{ $data_code_orders->pemesan }}_{{ $data_code_orders->pesanan }}</option>
                                 @endforeach
                             </select>
                         </div>

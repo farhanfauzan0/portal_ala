@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('css/jquery.steps.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jquery.timepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('css/quill.snow.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">
     <!-- Date Range Picker CSS -->
     {{-- <link rel="stylesheet" href="{{ asset('css/daterangepicker.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('css/datepicker.css') }}">
@@ -61,7 +62,11 @@
     <script src='{{ asset('js/bootstrap-datepicker.js') }}'></script>
     <script src='{{ asset('js/jquery.mask.min.js') }}'></script>
     <script src='{{ asset('js/jquery-dateformat.min.js') }}'></script>
+    <script src='{{ asset('js/jquery.dataTables.min.js') }}'></script>
     <script src="{{ asset('sweetalert/sweetalert2.min.js') }}"></script>
+    <script src='{{ asset('js/button.js') }}'></script>
+    <script src='{{ asset('js/buttonhtml5.js') }}'></script>
+    <script src='{{ asset('js/zip.js') }}'></script>
     {{-- <script src="js/d3.min.js"></script>
     <script src="js/topojson.min.js"></script>
     <script src="js/Chart.min.js"></script> --}}
@@ -89,6 +94,14 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
+        $(function() {
+            $("body").delegate(".datepickers", "focusin", function() {
+                $(this).datepicker({
+                    autoclose: true
+                    , format: 'yyyy-mm-dd'
+                });
+            });
+        });
 
         function gtag() {
             dataLayer.push(arguments);
@@ -99,6 +112,20 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
+        });
+        var filename = "ALA_GROUP" + Date.now()
+        $(".table").DataTable({
+            dom: 'Bfrtip'
+            , buttons: [{
+                    extend: 'excelHtml5'
+                    , filename: filename
+                    , text: "Export to Excel"
+                    , exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                    }
+                }
+                , 'pageLength'
+            ]
         });
 
         $('.number-only').mask('0#');

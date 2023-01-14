@@ -84,35 +84,34 @@ class InvoiceController extends Controller
 
     function submit_invoice(Request $request)
     {
-        // try {
-        foreach ($request['deskripsi'] as $key => $value) {
-            // dd(str_replace(".", "", $request['total_harga'][$key]));
-            DB::table('invoice')->insert([
-                'no_invoice' => $request->no_inv,
-                'deskripsi' => $request['deskripsi'][$key],
-                'qty' => $request['jumlah'][$key],
-                'amount' => str_replace(".", "", $request['harga_pcs'][$key]),
-                'total' => str_replace(".", "", $request['total_harga'][$key]),
-                'jenis' => $request->jenis,
-                'nama_pemesan' => $request->nama_pemesan,
-                'perusahaan' => $request->perusahaan,
-                'alamat' => $request->alamat_pemesan,
-                'created_at' => Carbon::now()
-            ]);
+        try {
+            foreach ($request['deskripsi'] as $key => $value) {
+                // dd(str_replace(".", "", $request['total_harga'][$key]));
+                DB::table('invoice')->insert([
+                    'no_invoice' => $request->no_inv,
+                    'deskripsi' => $request['deskripsi'][$key],
+                    'qty' => $request['jumlah'][$key],
+                    'amount' => str_replace(".", "", $request['harga_pcs'][$key]),
+                    'total' => str_replace(".", "", $request['total_harga'][$key]),
+                    'jenis' => $request->jenis,
+                    'nama_pemesan' => $request->nama_pemesan,
+                    'perusahaan' => $request->perusahaan,
+                    'alamat' => $request->alamat_pemesan,
+                    'created_at' => Carbon::now()
+                ]);
 
-            DB::table('portal_journal')->insert([
-                'code' => 'PRODUKSI',
-                'detail' => $request['deskripsi'][$key],
-                'debit' => 0,
-                'credit' => str_replace(".", "", $request['total_harga'][$key]),
-                'tanggal' => Carbon::now()->format('Y-m-d'),
-                'created_at' => Carbon::now()
-            ]);
+                // DB::table('portal_journal')->insert([
+                //     'code' => 'PRODUKSI',
+                //     'detail' => $request['deskripsi'][$key],
+                //     'debit' => 0,
+                //     'credit' => str_replace(".", "", $request['total_harga'][$key]),
+                //     'tanggal' => Carbon::now()->format('Y-m-d'),
+                //     'created_at' => Carbon::now()
+                // ]);
+            }
+        } catch (\Throwable $th) {
+            return back()->with(['mysweet' => true, 'title_a' => 'Gagal', 'text_a' => 'Periksa kembali data anda', 'icon_a' => 'error']);
         }
-        //     //code...
-        // } catch (\Throwable $th) {
-        //     //throw $th;
-        // }
 
         return back()->with(['mysweet' => true, 'title_a' => 'Sukses', 'text_a' => 'Data berhasil diinput', 'icon_a' => 'success']);
 
