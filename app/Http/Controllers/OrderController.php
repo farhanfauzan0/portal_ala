@@ -22,7 +22,7 @@ class OrderController extends Controller
     {
         $order = DB::table('portal_order')->whereid($id)->first();
         $nominal = 0;
-        $data_jurnal = DB::table('portal_journal')->wherekategori("PRODUKSI")->wherecode($order->pemesan . "_" . $order->pesanan)->get();
+        $data_jurnal = DB::table('portal_journal')->wherecode($order->pemesan . "_" . $order->pesanan)->get();
         foreach ($data_jurnal as $value) {
             $nominal += $value->debit;
         }
